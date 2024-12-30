@@ -1,12 +1,12 @@
-export MODEL_PATH='mistralai/Mistral-7B-v0.1'
-export SAVE_PATH='path/to/save'
+export MODEL_PATH='/kaggle/input/metamath-mistral-7b'
+export SAVE_PATH='/kaggle/working'
 export MASTER_ADDR="localhost"
 export MASTER_PORT="1231"
 export GLOO_SOCKET_IFNAME="lo"
 export NCCL_SOCKET_IFNAME="lo"
 export WANDB_DISABLED=true
 export HF_TOKEN="token of your huggingface"
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 -m torch.distributed.launch --master_addr ${MASTER_ADDR} --master_port ${MASTER_PORT} --nproc_per_node=8 --use_env train_math.py \
+CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m torch.distributed.launch --master_addr ${MASTER_ADDR} --master_port ${MASTER_PORT} --nproc_per_node=8 --use_env train_math.py \
     --model_name_or_path $MODEL_PATH \
     --data_path MetaMathQA-395K.json \
     --data_length 10000000 \
